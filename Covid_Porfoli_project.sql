@@ -198,7 +198,7 @@ where dea.continent is not null
 select * , (rollingpopulationvaccinated/population)*100
 from #percentpeoplevaccinated
 
-
+---creating view for store data for later visualization--
 create view peoplevaccinatedpercentage as
 Select dea.location, dea.continent, dea.population, dea.date, vac.new_vaccinations,
 SUM(CAST(vac.new_vaccinations as int)) over (partition by dea.location order by dea.location, dea.date)
@@ -209,3 +209,4 @@ ON dea.location = vac.location AND dea.date= vac.date
 where dea.continent is not null
 
 select * from peoplevaccinatedpercentage;
+
